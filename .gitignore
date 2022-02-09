@@ -1,0 +1,11 @@
+.bash_logout
+.bash_profile
+.bashrc
+.cshrc
+.ssh/
+.tcshrc
+.terraform.d/
+.terraform.lock.hcl
+.terraform/
+.viminfo
+
