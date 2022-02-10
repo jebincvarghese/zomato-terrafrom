@@ -38,16 +38,16 @@ resource "aws_security_group" "webserver" {
 # Security Group For Remote Access
 # =========================================================================
 
-resource "aws_security_group" "remote" {
+resource "aws_security_group" "ftp" {
     
-  name        = "remote"
-  description = "allow 22 traffic"
+  name        = "ftp"
+  description = "allow 21 traffic"
  
 
   ingress {
     description      = ""
-    from_port        = 22
-    to_port          = 22
+    from_port        = 21
+    to_port          = 21
     protocol         = "tcp"
     cidr_blocks      = [ "0.0.0.0/0" ]
     ipv6_cidr_blocks = [ "::/0" ]
@@ -62,11 +62,45 @@ resource "aws_security_group" "remote" {
   }
 
   tags = {
+    Name = "ftp",
+    project = "zomato"
+  }
+}
+
+#============================================
+#security group
+
+# Security Group For Remote Access
+# =========================================================================
+
+resource "aws_security_group" "remote" {
+
+  name        = "remote"
+  description = "allow 22 traffic"
+
+
+  ingress {
+    description      = ""
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = [ "0.0.0.0/0" ]
+    ipv6_cidr_blocks = [ "::/0" ]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
     Name = "remote",
     project = "uber"
   }
 }
-
 
 # =========================================================================
 # Creating Ec2 Instance
